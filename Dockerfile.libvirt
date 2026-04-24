@@ -1,0 +1,10 @@
+FROM ghcr.io/rackerlabs/genestack-images/libvirt:latest
+RUN sed -i \
+        -e '\|^URIs: http://deb\.debian\.org/debian$|,/^$/s|^Suites: bookworm.*|Suites: bookworm bookworm-updates bookworm-backports|' \
+        -e '\|^URIs: http://deb\.debian\.org/debian$|,/^$/s|^Components: main.*|Components: main contrib non-free-firmware|' \
+        /etc/apt/sources.list.d/debian.sources
+RUN apt update \
+    && apt install -y qemu-system-xen qemu-block-extra qemu-system qemu-system-x86 qemu-utils -t bookworm-backports \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*

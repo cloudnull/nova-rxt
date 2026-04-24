@@ -1,0 +1,4 @@
+pbr
+lxml
+oslo.config
+oslo.log

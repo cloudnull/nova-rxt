@@ -1,0 +1,3 @@
+stestr>=3.0.0
+testtools>=2.2.0
+ddt>=1.4.0
